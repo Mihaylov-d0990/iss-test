@@ -1,14 +1,9 @@
 // Personal types 
 
-export interface FullName {
-    name: string,
-    surname: string,
-    lastname: string
-}
-
 export interface PersonalData {
-    name: FullName,
-    email: string
+    name: string,
+    email: string,
+    photo?: string | null
 }
 
 export enum PersonalActionTypes {

@@ -1,12 +1,9 @@
 import { PersonalData, PersonalActionTypes, PersonalAction } from "../types/personalTypes"
 
 let defaultState: PersonalData = {
-    name: {
-        name: "Default",
-        surname: "Default",
-        lastname: "Default"
-    },
-    email: "Default"
+    name: "Default Default Default",
+    email: "Default",
+    photo: null
 }
 
 const personalReducer = (state: PersonalData = defaultState, action: PersonalAction): PersonalData => {

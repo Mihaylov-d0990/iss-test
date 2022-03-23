@@ -1,7 +1,18 @@
 import React from "react"
 
-function PersonalData() {
+import { useTypedSelector } from "../hooks/useTypedSelector"
+import { fetchPersonalData } from "../action-creators/personalActions"
+import { useActions } from "../hooks/useAction"
+ 
+function PersonalInfo() {
 
+    const personalData = useTypedSelector(state => state.personal)
+    const { fetchPersonalData } = useActions()
+
+    React.useEffect(() => {
+        fetchPersonalData()
+    }, [])
+    
     return (
         <div className="personal">
             <div className="container">
@@ -22,11 +33,11 @@ function PersonalData() {
                         <div className="personal__info">
                             <div className="personal__name">
                                 <div className="personal__subtitle">ФИО</div>
-                                <div className="personal__text">Васильев Иван Романович</div>
+                                <div className="personal__text">{`${personalData.name.name} ${personalData.name.surname} ${personalData.name.lastname}`}</div>
                             </div>
                             <div className="personal__email">
                                 <div className="personal__subtitle">Email</div>
-                                <div className="personal__text">vasiliev@gmail.ru</div>
+                                <div className="personal__text">{personalData.email}</div>
                             </div>
                         </div>
                     </div>
@@ -36,4 +47,4 @@ function PersonalData() {
     )
 }
 
-export default PersonalData
+export default PersonalInfo

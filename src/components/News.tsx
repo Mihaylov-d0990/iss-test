@@ -1,16 +1,23 @@
 import React from "react"
 
+import AddNews from "./AddNews"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
 
 function News() {
 
-    const newsData              = useTypedSelector(state => state.news)
-    const { fetchNewsData }     = useActions()
+    const newsData               = useTypedSelector(state => state.news)
+    const { fetchNewsData }      = useActions()
+
+    const [addForm, setAddForm] = React.useState<boolean>(false)
 
     React.useEffect(() => {
         fetchNewsData()
     }, [])
+
+    const showAddForm = () => {
+        setAddForm(addForm => !addForm)
+    }
 
     return (
         <div className="news">
@@ -20,10 +27,11 @@ function News() {
                         <div className="news__title">
                             Редактирование новостей
                         </div>
-                        <div className="news__create">
+                        <div className="news__create" onClick={showAddForm}> 
                             Создать новость
                         </div>
                     </div>
+                    {addForm && <AddNews />}
                     <div className="news__list">
                         {
                             newsData.map(item => {

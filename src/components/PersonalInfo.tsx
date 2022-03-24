@@ -2,30 +2,45 @@ import React from "react"
 
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
-import { PersonalData } from "../types/personalTypes"
+import PersonalImage from "./PersonalImage"
  
 function PersonalInfo() {
 
     const personalData                              = useTypedSelector(state => state.personal)
     const { fetchPersonalData, 
+            updatePersonalImage,
             updatePersonalData, 
             patchPersonalData }                     = useActions()
-
     const [edit, setEdit]                           = React.useState<boolean>(true)
-    const [localPersonalData, setLocalPersonalData] = React.useState<PersonalData>(() => personalData)
+
+    const fileRef                                   = React.useRef<HTMLInputElement>(null)
 
     React.useEffect(() => {
         fetchPersonalData()
-    }, [])
+    }, [])    
 
-    React.useEffect(() => {
-        setLocalPersonalData({...personalData})
-    }, [personalData])
+    const editPersonal = async () => {
+        const fileList: FileList | null | undefined = fileRef.current?.files
+        const file: File | null = fileList ? fileList[0] : null  
+        
+        if (!edit) {
+            await new Promise((resolve) => {
+                patchPersonalData(personalData, file, resolve)
+            });
+            
+            await new Promise((resolve) => {
+                updatePersonalImage(resolve)
+            });
+            
+            
+        }
 
-    const editPersonal = () => {
-        if (!edit) patchPersonalData(personalData)
         setEdit(edit => !edit)
+             
+        
+        
     }
+    
 
     return (
         <div className="personal">
@@ -43,13 +58,13 @@ function PersonalInfo() {
                         </div>
                     </div>
                     <div className="personal__data">
-                        <img src={personalData.photo?.toString()} className="personal__image"></img>
+                        <PersonalImage edit={edit} fileRef={fileRef} photoUrl={personalData.photoUrl} />
                         <div className="personal__info">
                             <div className="personal__name">
                                 <div className="personal__subtitle">ФИО</div>
                                 <div className="personal__text">
                                     <input 
-                                        type="text" value={localPersonalData.name} disabled={edit}
+                                        type="text" value={personalData.name} disabled={edit}
                                         onChange={e => updatePersonalData({...personalData, name: e.target.value})} 
                                     />
                                 </div>
@@ -58,7 +73,7 @@ function PersonalInfo() {
                                 <div className="personal__subtitle">Email</div>
                                 <div className="personal__text">
                                     <input 
-                                        type="text" value={localPersonalData.email} disabled={edit}
+                                        type="text" value={personalData.email} disabled={edit}
                                         onChange={e => updatePersonalData({...personalData, email: e.target.value})} 
                                     />
                                 </div>

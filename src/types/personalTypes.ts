@@ -27,5 +27,3 @@ export interface fetchImageAction {
 }
 
 export type PersonalAction = fetchPersonalDataAction | fetchImageAction
-
-//

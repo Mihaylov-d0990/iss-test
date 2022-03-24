@@ -116,6 +116,8 @@ body {
     &__image {
         height: 200px;
         background-color: $secondColor;
+        pointer-events: none;
+        background-size: cover;
     }
 
     &__text {

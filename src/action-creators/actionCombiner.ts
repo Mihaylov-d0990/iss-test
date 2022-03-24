@@ -1,7 +1,9 @@
 import * as PersonalActionCreators from "./personalActions"
+import * as NewsActionCreators from "./newsActions"
 
 const ActionCreators = {
-    ...PersonalActionCreators
+    ...PersonalActionCreators,
+    ...NewsActionCreators
 }
 
 export default ActionCreators

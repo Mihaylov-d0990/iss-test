@@ -1,18 +1,16 @@
-interface item {
-    date: string,
-    title: string
-}
+import React from "react"
 
-let listArray: item[] = []
-
-for (let i: number = 0; i < 3; i++) {
-    listArray.push({
-        date: "22.03.2022",
-        title: "Проект проект"
-    })
-}
+import { useTypedSelector } from "../hooks/useTypedSelector"
+import { useActions } from "../hooks/useAction"
 
 function News() {
+
+    const newsData              = useTypedSelector(state => state.news)
+    const { fetchNewsData }     = useActions()
+
+    React.useEffect(() => {
+        fetchNewsData()
+    }, [])
 
     return (
         <div className="news">
@@ -28,15 +26,15 @@ function News() {
                     </div>
                     <div className="news__list">
                         {
-                            listArray.map(item => {
+                            newsData.map(item => {
                                 return (
-                                    <div className="news__item" key={Math.random()}>
-                                        <div className="news__image">
+                                    <div className="news__item" key={item.id}>
+                                        <div className="news__image" style={{backgroundImage: `url('${item.fileId}')`}}>
 
                                         </div>
                                         <div className="news__info">
                                             <div className="news__date">
-                                                {item.date}
+                                                {item.createdAt}
                                             </div>
                                             <div className="news__text">
                                                 {item.title}

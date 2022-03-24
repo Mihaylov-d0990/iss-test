@@ -6,14 +6,14 @@ import PersonalImage from "./PersonalImage"
  
 function PersonalInfo() {
 
-    const personalData                              = useTypedSelector(state => state.personal)
+    const personalData              = useTypedSelector(state => state.personal)
     const { fetchPersonalData, 
             updatePersonalImage,
             updatePersonalData, 
-            patchPersonalData }                     = useActions()
-    const [edit, setEdit]                           = React.useState<boolean>(true)
+            patchPersonalData }     = useActions()
+    const [edit, setEdit]           = React.useState<boolean>(true)
 
-    const fileRef                                   = React.useRef<HTMLInputElement>(null)
+    const fileRef                   = React.useRef<HTMLInputElement>(null)
 
     React.useEffect(() => {
         fetchPersonalData()
@@ -30,15 +30,10 @@ function PersonalInfo() {
             
             await new Promise((resolve) => {
                 updatePersonalImage(resolve)
-            });
-            
-            
+            });  
         }
 
-        setEdit(edit => !edit)
-             
-        
-        
+        setEdit(edit => !edit)    
     }
     
 

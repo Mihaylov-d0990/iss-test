@@ -1,7 +1,8 @@
 import PersonalInfo from "./components/PersonalInfo"
 import Head from "./components/Head"
 import News from "./components/News"
-import Guide from "./components/Guide";
+import Guide from "./components/Guide"
+import Control from "./components/Control"
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
             <PersonalInfo/>
             <News />
             <Guide />
+            <Control />
         </>
     );
 }

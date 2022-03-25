@@ -19,11 +19,13 @@ export const fetchPersonalData = () => {
             photoId: data.photoId
         }
         
-        const responseImage =  await fetch(`http://localhost:8080/api/v1/file/${data.photoId}`)
+        if (data.photoId) {
+            const responseImage =  await fetch(`http://localhost:8080/api/v1/file/${data.photoId}`)
         
-        const image = await responseImage.blob()
+            const image = await responseImage.blob()
 
-        parsedData.photoUrl = URL.createObjectURL(image)
+            parsedData.photoUrl = URL.createObjectURL(image)
+        }
 
         dispatch({type: PersonalActionTypes.FETCH_PERSONAL_DATA, payload: parsedData})           
         await fetch("http://localhost:8080/api/logout")
@@ -49,11 +51,13 @@ export const updatePersonalImage = (resolve: Function) => {
         const responseUser = fetch(`http://localhost:8080/api/v1/user?id=${data.id}`)
         data = await (await responseUser).json()
 
-        const responseImage = fetch(`http://localhost:8080/api/v1/file/${data.photoId}`) 
-        const image = await (await responseImage).blob()
-        const photoUrl: string = URL.createObjectURL(image)
-        const object: ImageData = {photoUrl: photoUrl}
-        dispatch({type: PersonalActionTypes.FETCH_IMAGE, payload: object})
+        if (data.photoId) {
+            const responseImage = fetch(`http://localhost:8080/api/v1/file/${data.photoId}`) 
+            const image = await (await responseImage).blob()
+            const photoUrl: string = URL.createObjectURL(image)
+            const object: ImageData = {photoUrl: photoUrl}
+            dispatch({type: PersonalActionTypes.FETCH_IMAGE, payload: object})
+        }
 
         await fetch("http://localhost:8080/api/logout")
 

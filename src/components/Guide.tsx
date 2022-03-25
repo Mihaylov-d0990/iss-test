@@ -21,7 +21,7 @@ function Guide() {
             <div className="container">
                 <div className="guide__content">
                     <div className="guide__head">
-                        <div className="guide__title">
+                        <div className="guide__title title">
                             Управление справочниками
                         </div>
                     </div>

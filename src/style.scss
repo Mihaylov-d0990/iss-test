@@ -6,8 +6,11 @@
 $firstColor: #3b4d95;
 $secondColor: #3d4047;
 $thirdColor: #2763a9;
+$fourthColor: rgb(255, 83, 83);
+$fifthColor: #0c4b92;
 
 body {
+    font-family: 'Roboto', sans-serif;
     color: $secondColor;
     font-size: 16px;
 }
@@ -21,11 +24,6 @@ body {
 /* personal */
 
 .personal {
-
-    &__content {
-        padding-bottom: 30px;
-    }
-
     &__header {
         font-size: 2.5em;
         font-weight: 600;
@@ -41,6 +39,10 @@ body {
 
     &__edit {
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        column-gap: 5px;
+        padding-right: 20px;
     }
 
     &__data {
@@ -55,13 +57,17 @@ body {
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        background-color: $secondColor;
+        background-color: rgb(158, 158, 158);
         background-position: 50% 50%;
         background-size: cover;
 
         input[type=file] {
             display: none;
         }
+    }
+    
+    &__image_red {
+        background-color: $fourthColor;
     }
 
     &__upload {
@@ -88,11 +94,45 @@ body {
     &__name,
     &__email {
         display: flex;
-        column-gap: 30px;
+        column-gap: 20px;
+        align-items: center;
+    }
+
+    &__text {
+
+        input[type=text] {
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+            font-size: 1em;
+        }
+
+        input[type=text]:disabled {
+            background-color: inherit;
+            color: $secondColor;
+            border-bottom: none;
+        }
     }
 
     &__subtitle {
         font-weight: 600;
+        width: 50px;
+    }
+
+    &__save {
+        display: flex;
+        padding: 20px 10px;
+    }
+
+    &__save-button {
+        background-color: $fourthColor;
+        padding: 5px 10px;
+        color: white;
+        cursor: pointer;
+    }
+
+    &__save-button_bg-none {
+        background-color: white;
     }
 }
 
@@ -114,12 +154,18 @@ body {
 
     &__create {
         cursor: pointer;
+        padding-right: 20px;
     }
 
     &__list {
         padding: 30px 5px;
         display: flex;
         column-gap: 30px;
+    }
+
+    &__empty {
+        font-weight: 600;
+        font-size: 1.3em;
     }
 
     &__item {
@@ -135,6 +181,7 @@ body {
     }
 
     &__bottom {
+        padding-top: 7px;
         display: flex;
         justify-content: space-between;
     }
@@ -149,7 +196,6 @@ body {
     &__delete {
         width: 20px;
         height: 20px;
-        background-color: red;
         text-align: center;
         cursor: pointer;
     }
@@ -213,6 +259,141 @@ body {
     }
 }
 
+/* control */
+
+.control {
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        padding: 20px 0px;
+    }
+
+    &__add {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 7px;
+        border-bottom: 1px solid rgba(156, 156, 156, 0.3);
+    }
+
+    &__subtitle {
+        color: $thirdColor;
+        font-weight: 600;
+        font-size: 1.125em;
+        border-bottom: 2px solid $thirdColor;
+        padding-bottom: 3px;
+    }
+
+    &__add-button {
+        padding-right: 20px;
+    }
+
+    &__search {
+        padding: 10px 0px;
+        display: flex;
+        column-gap: 15px;
+
+        input[type=text] {
+            width: 350px;
+            padding: 5px 10px;
+            font-size: 1.125em;
+            color: black;
+            border-style: none;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+
+            &::placeholder {
+                color: lightgray;
+            }
+        }
+    }
+
+    &__search-button {
+        background-color: $thirdColor;
+        color: white;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    &__table {
+        font-size: 1.125em;
+        padding: 0px 10px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        tr td:last-child {
+            display: flex;
+            justify-content: center;
+            column-gap: 10px;
+            
+            img {
+                cursor: pointer;
+            }
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+
+        th {
+            border-bottom: 1px solid black;
+            padding: 10px 0px;
+        }
+
+        td {
+            padding: 15px 0px;
+        }
+    }
+
+    &__routing {
+        display: flex;
+        column-gap: 5px;
+        padding: 10px 0px;
+    }
+
+    &__route {
+        cursor: pointer;
+        border-radius: 1px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        background-color: lightgrey;
+    }
+
+    &__route_active {
+        background-color: $thirdColor;
+        color: white;
+    }
+
+    &__paging {
+        color: gray;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        column-gap: 10px;
+        font-size: 0.7em;
+
+        select {
+            color: gray;
+            border-color: gray;
+            padding: 2px 5px;
+            padding-right: 30px;
+            outline: none;
+        }
+    }
+}
+
 /* blocks */
 
 .add-news {
@@ -221,6 +402,11 @@ body {
     row-gap: 20px;
     flex-direction: column;
     width: 700px;
+
+    &__name {
+        font-weight: 600;
+        font-size: 1.7em;
+    }
 
     &__title,
     &__content,
@@ -307,15 +493,21 @@ body {
     &__cancel {
         padding: 5px 10px;
         cursor: pointer;
+        color: white;
     }
 
     &__save {
-        background-color: rgb(253, 115, 115);
+        background-color: $fourthColor;
     }
 
     &__cancel {
         background-color: rgb(167, 164, 164);
     }
+}
+
+.title {
+    font-weight: 600;
+    font-size: 1.3em;
 }
 
 .container {

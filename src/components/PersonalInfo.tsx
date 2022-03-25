@@ -36,6 +36,7 @@ function PersonalInfo() {
         setEdit(edit => !edit)    
     }
     
+    const editImage: string = require("../images/edit.svg").default  
 
     return (
         <div className="personal">
@@ -45,12 +46,14 @@ function PersonalInfo() {
                         Личный кабинет системного администратора
                     </div>
                     <div className="personal__head">
-                        <div className="personal__title">
+                        <div className="personal__title title">
                             Персональные данные
                         </div>
-                        <div className="personal__edit" onClick={editPersonal}>
-                            Редактировать
-                        </div>
+                        {
+                            edit ? 
+                            <div className="personal__edit" onClick={editPersonal}><img src={editImage} alt="" />Редактировать</div> :
+                            <div className="personal__edit"></div>
+                        }
                     </div>
                     <div className="personal__data">
                         <PersonalImage edit={edit} fileRef={fileRef} photoUrl={personalData.photoUrl} />
@@ -74,6 +77,13 @@ function PersonalInfo() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="personal__save">
+                        {
+                            !edit ? 
+                            <div className="personal__save-button"  onClick={editPersonal}>Сохранить</div> : 
+                            <div className="personal__save-button personal__save-button_bg-none"><br/></div>
+                        }
                     </div>
                 </div>
             </div>

@@ -40,16 +40,19 @@ function News() {
         return null
     }
 
+    const editImage: string = require("../images/edit.svg").default  
+    const trashImage: string = require("../images/trash.svg").default  
+
     return (
         <div className="news">
             <div className="container">
                 <div className="news__content">
                     <div className="news__head">
-                        <div className="news__title">
+                        <div className="news__title title">
                             Редактирование новостей
                         </div>
                         {!addForm ?
-                        <div className="news__create" onClick={showAddForm}>Создать новость</div> : 
+                        <div className="news__create" onClick={showAddForm}>+ Создать новость</div> : 
                         <div className="news__create">Создать новость</div>}
                     </div>
                     <FormCreator />
@@ -71,9 +74,7 @@ function News() {
                                                 </div>
                                             </div>
                                             <div className="news__control">
-                                                <div className="news__edit" onClick={() => showEditForm(item.id)}>
-                                                    E
-                                                </div>
+                                                <div className="news__edit" onClick={() => showEditForm(item.id)}><img src={editImage} alt="" /></div>
                                                 <div className="news__delete" onClick={async () => {
                                                     await new Promise((resolve) => {
                                                         deleteNewsDB(item.id, resolve)
@@ -83,14 +84,15 @@ function News() {
                                                         fetchNewsData(resolve)
                                                     })
                                                 }}>
-                                                    D
+                                                    <img src={trashImage} alt="" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 )
-                            })
+                            })   
                         }
+                        { newsData.length === 0 ? <div className="news__empty">Пока новостей нет</div> : ""}
                     </div>
                     <div className="news__all">Показать все новости</div>
                 </div>

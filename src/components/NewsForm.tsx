@@ -26,8 +26,6 @@ const NewsForm = (newsProps: NewsProps) => {
         updateNewsFormData({...newsData, file: fileName})       
     }
 
-    
-
     const closeForm = () => {
         const data: NewsFormData = {
             id: "",

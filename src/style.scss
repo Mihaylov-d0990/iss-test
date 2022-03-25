@@ -39,6 +39,10 @@ body {
         border-bottom: 1px solid rgba(156, 156, 156, 0.3);
     }
 
+    &__edit {
+        cursor: pointer;
+    }
+
     &__data {
         padding-top: 20px;
         display: flex;
@@ -106,6 +110,10 @@ body {
         justify-content: space-between;
         padding-bottom: 7px;
         border-bottom: 1px solid rgba(156, 156, 156, 0.3);
+    }
+
+    &__create {
+        cursor: pointer;
     }
 
     &__list {

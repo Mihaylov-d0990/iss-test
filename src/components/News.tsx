@@ -1,24 +1,43 @@
 import React from "react"
 
-import AddNews from "./AddNews"
+import NewsForm from "./NewsForm"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
 
 function News() {
 
-    const newsData               = useTypedSelector(state => state.news)
+    const newsData                = useTypedSelector(state => state.news)
     const { fetchNewsData,
             addNewsDB,
-            deleteNewsDB }       = useActions()
+            deleteNewsDB,
+            getNewsData,
+            patchNewsDB }         = useActions()
 
-    const [addForm, setAddForm]  = React.useState<boolean>(false)
+    const [addForm, setAddForm]   = React.useState<boolean>(false)
+    const [editForm, setEditForm] = React.useState<boolean>(false)
 
     React.useEffect(() => {
-        fetchNewsData()
+        fetchNewsData(null)
     }, [])
 
     const showAddForm = () => {
         setAddForm(addForm => !addForm)
+    }
+
+    const showEditForm = (id: string) => {
+        getNewsData(id)
+        setEditForm(editForm => !editForm)
+    }
+
+    const FormCreator = () => {
+        if (addForm) {
+            return <NewsForm name="Создать новость" showForm={showAddForm} addNewsDB={addNewsDB} />
+        }
+        if (editForm) {
+            return <NewsForm name="Редактировать новость" showForm={showEditForm} addNewsDB={patchNewsDB} />
+        }
+        
+        return null
     }
 
     return (
@@ -29,11 +48,11 @@ function News() {
                         <div className="news__title">
                             Редактирование новостей
                         </div>
-                        <div className="news__create" onClick={showAddForm}> 
-                            Создать новость
-                        </div>
+                        {!addForm ?
+                        <div className="news__create" onClick={showAddForm}>Создать новость</div> : 
+                        <div className="news__create">Создать новость</div>}
                     </div>
-                    {addForm && <AddNews name="Создать новость" showForm={showAddForm} addNewsDB={addNewsDB} />}
+                    <FormCreator />
                     <div className="news__list">
                         {
                             newsData.map(item => {
@@ -52,10 +71,18 @@ function News() {
                                                 </div>
                                             </div>
                                             <div className="news__control">
-                                                <div className="news__edit">
+                                                <div className="news__edit" onClick={() => showEditForm(item.id)}>
                                                     E
                                                 </div>
-                                                <div className="news__delete" onClick={() => {deleteNewsDB(item.id)}}>
+                                                <div className="news__delete" onClick={async () => {
+                                                    await new Promise((resolve) => {
+                                                        deleteNewsDB(item.id, resolve)
+                                                    })
+
+                                                    await new Promise((resolve) => {
+                                                        fetchNewsData(resolve)
+                                                    })
+                                                }}>
                                                     D
                                                 </div>
                                             </div>

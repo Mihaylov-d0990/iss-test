@@ -1,9 +1,10 @@
-import { NewsActionTypes, AddNewsData } from "../types/newsTypes"
+import { NewsActionTypes } from "../types/newsTypes"
+import { NewsFormData } from "../types/newsFormTypes"
 
 import { Dispatch } from "redux"
 import { NewsAction } from "../types/newsTypes"
 
-export const fetchNewsData = () => {
+export const fetchNewsData = (resolve: Function | null) => {
     return async (dispatch: Dispatch<NewsAction>) => { 
 
         await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })
@@ -31,26 +32,26 @@ export const fetchNewsData = () => {
 
         dispatch({type: NewsActionTypes.FETCH_NEWS_DATA, payload: data})
         await fetch("http://localhost:8080/api/logout")
+        if (resolve) resolve()
     }
 }
 
-export const addNewsDB = (addNewsData: AddNewsData) => {
+export const addNewsDB = (addFormData: NewsFormData, file: File | null, setError: Function, resolve: Function) => {
     return async () => {
         await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })
 
-        if (addNewsData.file) {       
+        if (file) {       
             const formData = new FormData()
-            formData.append("file", addNewsData.file)
+            formData.append("file", file)
 
             const responseImage = await fetch("http://localhost:8080/api/v1/file", { method: "POST", body: formData})
             const imageId = await responseImage.json()
-
-
+            
             await fetch(`http://localhost:8080/api/v1/news`, { 
                 method: "POST",
                 body: JSON.stringify({
-                    title: addNewsData.title,
-                    content: addNewsData.content,
+                    title: addFormData.title,
+                    content: addFormData.content,
                     fileId: imageId
                 }),
                 headers: {
@@ -58,21 +59,74 @@ export const addNewsDB = (addNewsData: AddNewsData) => {
                 }
             })
             
+        } else if(addFormData.link.length > 0) {
+            try {
+                const res = await fetch(addFormData.link)
+                const image = await res.blob()
+                return image
+    
+            } catch(error: any) {
+                setError(`Ошибка: ${error.message}.${(error.message === "Failed to fetch" ? " Попробуйте загрузить файл с комьютера." : "")}`)     
+            } 
+        } else {
+            setError("Ошибка: Изображение не выбрано. Попробуйте загрузить файл с комьютера.")
         }
+
+        await fetch("http://localhost:8080/api/logout")
+        resolve()
+    }
+}
+
+export const patchNewsDB = (addFormData: NewsFormData, file: File | null, setError: Function) => {
+    return async () => {
+        await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })
+
+        let fileId = addFormData.fileId
+
+        if (file) {       
+            const formData = new FormData()
+            formData.append("file", file)
+
+            const responseImage = await fetch("http://localhost:8080/api/v1/file", { method: "POST", body: formData})
+            fileId = await responseImage.json()
+            
+        } else if(addFormData.link.length > 0) {
+            try {
+                const res = await fetch(addFormData.link)
+                const image = await res.blob()
+                return image
+    
+            } catch(error: any) {
+                setError(`Ошибка: ${error.message}.${(error.message === "Failed to fetch" ? " Попробуйте загрузить файл с комьютера." : "")}`)     
+            } 
+        } 
+
+        // This API request doesn't work. It doesn't work in the swagger ui and on the client.
+
+        await fetch(`http://localhost:8080/api/v1/news?id=${addFormData.id}`, { 
+            method: "PATCH",
+            body: JSON.stringify({
+                title: addFormData.title,
+                content: addFormData.content,
+                fileId: fileId
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
 
         await fetch("http://localhost:8080/api/logout")
     }
 }
 
-export const deleteNewsDB = (id: string) => {
+export const deleteNewsDB = (id: string, resolve: Function) => {
     return async () => {
         await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })
 
-        const response = await fetch(`http://localhost:8080/api/v1/news?id=${id}`, { method: "Delete" })
-        console.log(response);
-        
-        
+        await fetch(`http://localhost:8080/api/v1/news?id=${id}`, { method: "Delete" })
 
         await fetch("http://localhost:8080/api/logout")
+
+        resolve()
     }
 }

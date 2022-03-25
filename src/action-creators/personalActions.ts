@@ -20,6 +20,7 @@ export const fetchPersonalData = () => {
         }
         
         const responseImage =  await fetch(`http://localhost:8080/api/v1/file/${data.photoId}`)
+        
         const image = await responseImage.blob()
 
         parsedData.photoUrl = URL.createObjectURL(image)

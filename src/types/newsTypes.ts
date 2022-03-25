@@ -12,6 +12,12 @@ export interface ImageData {
     imageUrl: string | null
 }
 
+export interface AddNewsData {
+    title: string,
+    content: string,
+    file: File | Blob | null
+}
+
 export enum NewsActionTypes {
     FETCH_NEWS_DATA = "FETCH_NEWS_DATA",
     FETCH_IMAGE = "FETCH_IMAGE"

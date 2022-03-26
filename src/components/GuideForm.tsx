@@ -21,6 +21,7 @@ function GuideForm(formProps: IGuideForm) {
     return (
         <div className="guide-form">
             <div className="guide-form__title title">{currentGuide?.name}</div>
+            <div className="guide-form__search"><input type="text" placeholder="Поиск по названию"/></div>
             <div className="guide-form__table">
                 <table>
                     <thead>
@@ -49,6 +50,7 @@ function GuideForm(formProps: IGuideForm) {
                         })}
                     </tbody>
                 </table>
+                { guideFormData.length === 0 ? <div className="guide-form__empty">В справочнике не записей</div> : <></>}
             </div>
             <div className="guide-form__save" onClick={formProps.hideForm}>Сохранить</div>
         </div>

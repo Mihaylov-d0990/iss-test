@@ -296,10 +296,11 @@ body {
 
     &__add-button {
         padding-right: 20px;
+        cursor: pointer;
     }
 
     &__search {
-        padding: 10px 0px;
+        padding: 10px 10px;
         display: flex;
         column-gap: 15px;
 
@@ -359,6 +360,12 @@ body {
         td {
             padding: 15px 0px;
         }
+    }
+
+    &__empty {
+        padding: 30px 0px;
+        font-weight: 600;
+        font-size: 1.3em;
     }
 
     &__routing {
@@ -570,6 +577,21 @@ body {
         padding-left: 100px;
     }
 
+    &__search {
+        padding: 30px 100px;
+        box-sizing: border-box;
+        
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            outline: none;
+            padding: 10px 20px; 
+            border: 1px solid rgba(gray, 0.2);
+            border-radius: 5px;
+            font-size: 1.125em;
+        }
+    }
+
     &__table {
 
         th {
@@ -639,6 +661,91 @@ body {
         align-self: flex-end;
         padding: 10px 20px;
         margin-right: 100px;
+        cursor: pointer;
+    }
+
+    &__empty {
+        padding-left: 100px;
+        font-weight: 600;
+        font-size: 1.3em;
+    }
+}
+
+.control-form {
+    padding: 30px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &__content {
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 30px;
+    }
+
+    &__title {
+        padding-bottom: 20px;
+    }
+
+    &__form {
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 40px;
+        row-gap: 30px;
+    }
+
+    &__input {
+        flex: 0 0 calc(50% - 20px);
+        display: flex;
+        position: relative;
+        
+        &:after {
+            position: absolute;
+            right: -13px;
+            top: -13px;
+            content: "*";
+            opacity: 0;
+            padding-left: 10px;
+        }
+        
+        &_necessarily:after {
+            opacity: 1;
+            font-size: 1.3em;
+            color: $thirdColor;
+        }
+
+        input,
+        select {
+            color: #000;
+            box-sizing: border-box;
+            border-style: none;
+            border-radius: 4px;
+            border: 1px solid rgba(gray, 0.3);
+            width: 100%;
+            padding: 10px 15px;
+            outline: none;
+
+            &:disabled {
+                color: rgba(gray, 0.3);
+            }
+
+            &::placeholder {
+                color: rgba(gray, 0.6);
+            }
+        }
+
+        select {
+            color: rgba(gray, 0.6);
+        }
+    }
+
+    &__create {
+        background-color: $thirdColor;
+        color: white;
+        padding: 7px 25px;
         cursor: pointer;
     }
 }

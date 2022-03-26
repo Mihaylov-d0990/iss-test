@@ -24,19 +24,15 @@ export const addGuide = (name: string, guideClass: string | undefined, resolve: 
 
         try {
             if (name.length !== 0) {
-                const response = await fetch(`http://localhost:8080/api/v1/nsi/${guideClass}`, {
+                await fetch(`http://localhost:8080/api/v1/nsi/${guideClass}`, {
                     body: `["${name}"]`,
                     headers: {
                       Accept: "*/*",
                       "Content-Type": "application/json"
                     },
                     method: "POST"
-                })
-                console.log(await response.json());
-                
-            } else {
-                throw new Error("Input can't be empty")
-            }
+                })             
+            } else throw new Error("Input can't be empty")
 
         } catch(e) {
             console.error(e)

@@ -1,5 +1,16 @@
+import React from "react"
+import { useActions } from "../hooks/useAction"
+import { useTypedSelector } from "../hooks/useTypedSelector"
+import { ControlData } from "../types/controlTypes"
+import ControlForm from "./ControlForm"
 
 function Control() {
+    const { fetchControlData } = useActions()
+    const controlData = useTypedSelector(state => state.control)
+    
+    React.useEffect(() => {
+        fetchControlData()
+    }, [])
 
     const refresh = require("../images/refresh.svg").default
     const edit = require("../images/edit.svg").default
@@ -32,7 +43,25 @@ function Control() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {controlData?.map((item: ControlData, index) => {
+                                    return (
+                                        <tr key={item.id}>
+                                            <td>{index}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.department}</td>
+                                            <td>{item.phone}</td>
+                                            <td>{item.email}</td>
+                                            <td>{item.password}</td>
+                                            <td>
+                                                <img src={refresh} alt="" />
+                                                <img src={edit} alt="" />
+                                                <img src={trash} alt="" />
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+
+                                {/* <tr>
                                     <td>2</td>
                                     <td>Петров Пётр Петрович</td>
                                     <td>ИТ</td>
@@ -57,10 +86,12 @@ function Control() {
                                         <img src={edit} alt="" />
                                         <img src={trash} alt="" />
                                     </td>
-                                </tr>
+                                </tr> */}
                             </tbody>
                         </table>
+                        {!controlData ? <div className="control__empty">Пока сотрудников нет</div> : <></>}
                     </div>
+                    <ControlForm />
                     <div className="control__routing">
                         <div className="control__route">←</div>
                         <div className="control__route control__route_active">1</div>

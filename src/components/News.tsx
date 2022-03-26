@@ -86,7 +86,7 @@ function News() {
                                 )
                             })   
                         }
-                        { newsData.length === 0 ? <div className="news__empty">Пока новостей нет</div> : ""}
+                        { newsData.length === 0 ? <div className="news__empty">Пока новостей нет</div> : <></>}
                     </div>
                     <div className="news__all">Показать все новости</div>
                 </div>

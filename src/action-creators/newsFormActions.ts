@@ -4,7 +4,7 @@ import { NewsFormData, NewsFormActionTypes } from "../types/newsFormTypes"
 
 export const updateNewsFormData = (data: NewsFormData) => {
     return (dispatch: Dispatch<NewsFormAction>) => {
-        dispatch({type: NewsFormActionTypes.SET_NEWS_DATA, payload: data})
+        dispatch({type: NewsFormActionTypes.SET_NEWS_FORM_DATA, payload: data})
     }
 }
 
@@ -46,7 +46,7 @@ export const getNewsData = (id: string) => {
             fileId: requiredData.fileId
         }
 
-        dispatch({type: NewsFormActionTypes.SET_NEWS_DATA, payload: data})
+        dispatch({type: NewsFormActionTypes.SET_NEWS_FORM_DATA, payload: data})
 
         await fetch("http://localhost:8080/api/logout")
     }

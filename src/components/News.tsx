@@ -20,9 +20,7 @@ function News() {
         fetchNewsData(null)
     }, [])
 
-    const showAddForm = () => {
-        setAddForm(addForm => !addForm)
-    }
+    const showAddForm = () => setAddForm(addForm => !addForm)
 
     const showEditForm = (id: string) => {
         getNewsData(id)
@@ -30,12 +28,8 @@ function News() {
     }
 
     const FormCreator = () => {
-        if (addForm) {
-            return <NewsForm name="Создать новость" showForm={showAddForm} addNewsDB={addNewsDB} />
-        }
-        if (editForm) {
-            return <NewsForm name="Редактировать новость" showForm={showEditForm} addNewsDB={patchNewsDB} />
-        }
+        if (addForm) return <NewsForm name="Создать новость" showForm={showAddForm} addNewsDB={addNewsDB} />
+        if (editForm) return <NewsForm name="Редактировать новость" showForm={showEditForm} addNewsDB={patchNewsDB} />
         
         return null
     }
@@ -53,7 +47,7 @@ function News() {
                         </div>
                         {!addForm ?
                         <div className="news__create" onClick={showAddForm}>+ Создать новость</div> : 
-                        <div className="news__create">Создать новость</div>}
+                        <div className="news__create"></div>}
                     </div>
                     <FormCreator />
                     <div className="news__list">

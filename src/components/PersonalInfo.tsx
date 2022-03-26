@@ -24,13 +24,9 @@ function PersonalInfo() {
         const file: File | null = fileList ? fileList[0] : null  
         
         if (!edit) {
-            await new Promise((resolve) => {
-                patchPersonalData(personalData, file, resolve)
-            });
+            await new Promise((resolve) => patchPersonalData(personalData, file, resolve))
             
-            await new Promise((resolve) => {
-                updatePersonalImage(resolve)
-            });  
+            await new Promise((resolve) => updatePersonalImage(resolve))  
         }
 
         setEdit(edit => !edit)    

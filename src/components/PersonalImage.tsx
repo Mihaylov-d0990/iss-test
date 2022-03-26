@@ -12,7 +12,7 @@ const PersonalImage = ({edit, fileRef, photoUrl}: props) => {
         <>
             {
                 edit ? 
-                <div style={{backgroundImage: `url('${photoUrl?.toString()}')`}} className="personal__image"></div> :
+                <div style={{backgroundImage: `url('${photoUrl?.toString()}')`}} className="personal__image">{photoUrl ? "" : <div className="personal__upload">Загрузить фото</div>}</div> :
                 <div className="personal__image personal__image_red"><label className="personal__upload"><input ref={fileRef} type="file" />Загрузить фото</label></div>
             }
         </>

@@ -11,7 +11,7 @@ const defaultState: NewsFormData = {
 
 const newsFormReducer = (state: NewsFormData = defaultState, action: NewsFormAction): NewsFormData => {
     switch (action.type) {
-        case NewsFormActionTypes.SET_NEWS_DATA: return action.payload
+        case NewsFormActionTypes.SET_NEWS_FORM_DATA: return action.payload
         default: return state
     }
 }

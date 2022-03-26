@@ -64,10 +64,10 @@ body {
         input[type=file] {
             display: none;
         }
-    }
-    
-    &__image_red {
-        background-color: $fourthColor;
+
+        &_red {
+            background-color: $fourthColor;
+        }
     }
 
     &__upload {
@@ -101,16 +101,17 @@ body {
     &__text {
 
         input[type=text] {
+            width: 300px;
             border: none;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid rgba($secondColor, 0.3);
             outline: none;
             font-size: 1em;
-        }
 
-        input[type=text]:disabled {
-            background-color: inherit;
-            color: $secondColor;
-            border-bottom: none;
+            &:disabled {
+                background-color: inherit;
+                color: $secondColor;
+                border-bottom: 1px solid rgba($secondColor, 0);
+            }
         }
     }
 
@@ -129,10 +130,10 @@ body {
         padding: 5px 10px;
         color: white;
         cursor: pointer;
-    }
 
-    &__save-button_bg-none {
-        background-color: white;
+        &_bg-none {
+            background-color: white;
+        }
     }
 }
 
@@ -208,6 +209,7 @@ body {
         display: flex;
         justify-content: flex-end;
         padding-right: 20px;
+        cursor: pointer;
     }
 }
 
@@ -247,6 +249,10 @@ body {
         justify-content: space-between;
     }
 
+    &__button {
+        cursor: pointer;
+    }
+
     &__subtitle {
         font-size: 1.125em;
         font-weight: 600;
@@ -256,6 +262,7 @@ body {
         display: flex;
         justify-content: flex-end;
         padding-right: 20px;
+        cursor: pointer;
     }
 }
 
@@ -369,11 +376,11 @@ body {
         width: 20px;
         height: 20px;
         background-color: lightgrey;
-    }
 
-    &__route_active {
-        background-color: $thirdColor;
-        color: white;
+        &_active {
+            background-color: $thirdColor;
+            color: white;
+        }
     }
 
     &__paging {
@@ -390,6 +397,57 @@ body {
             padding: 2px 5px;
             padding-right: 30px;
             outline: none;
+        }
+    }
+}
+
+/* structure */
+
+.structure {
+    &__list {
+        ol {
+            list-style: none;
+            counter-reset: li;
+        }
+
+        li {
+            padding: 30px 0px;
+        }
+
+        ol > li:last-child {
+            padding: 0px 0px;
+        }
+
+        ol > li > ol {
+            margin-left: 280px;
+        }
+
+        ol > li > ol > li > ol {
+            margin-left: 90px;
+        }
+
+        li > select {
+            
+            font-size: 1.125em;
+            margin-right: 20px;
+            width: 200px;
+            padding: 7px 14px;
+            outline: none;
+            border-color: gray;
+            color: gray;
+            border-radius: 3px;
+
+            & > option {
+                font-size: 1.125em;
+                padding: 7px 14px;
+            }
+        }
+
+        li:before {            
+            padding-right: 20px;
+            color: gray;
+            counter-increment: li;
+            content: counters(li, ".") ". ";
         }
     }
 }
@@ -502,6 +560,86 @@ body {
 
     &__cancel {
         background-color: rgb(167, 164, 164);
+    }
+}
+
+.guide-form {
+    display: flex;
+    flex-direction: column;
+    &__title {
+        padding-left: 100px;
+    }
+
+    &__table {
+
+        th {
+            text-align: start;
+            font-size: 1.3em;
+        }
+
+        tr td {
+            box-sizing: border-box;
+            border-radius: 5px;
+            background-color: rgba(lightgray, 0.2);
+            border: 1px solid rgba(gray, 0.2);
+            padding: 10px 20px; 
+            margin-bottom: 20px;
+        }
+
+        tr td:last-child {
+            background-color: white;
+        }
+
+        tr th:first-child,
+        tr td:first-child {
+            width: 50px;
+        }
+
+        td {
+            height: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-spacing: 100px 20px;
+        }
+    }
+
+    &__input {
+        padding: 0px 0px !important;
+        border: none !important;
+
+        input {
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 10px 20px;
+            width: 100%;
+            border: 1px solid rgba(gray, 0.2);
+            outline: none;
+            font-size: 1.009em;
+        }
+    }
+
+    &__name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__add {
+        font-size: 0.7em !important;
+        font-weight: 400;
+        color: $thirdColor;
+        cursor: pointer;
+    }
+
+    &__save {
+        color: white;
+        background-color: $fourthColor;
+        align-self: flex-end;
+        padding: 10px 20px;
+        margin-right: 100px;
+        cursor: pointer;
     }
 }
 

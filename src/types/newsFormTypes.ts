@@ -10,11 +10,11 @@ export interface NewsFormData {
 }
 
 export enum NewsFormActionTypes {
-    SET_NEWS_DATA = "SET_NEWS_DATA"
+    SET_NEWS_FORM_DATA = "SET_NEWS_FORM_DATA"
 }
 
 export interface setNewsFormAction {
-    type: NewsFormActionTypes.SET_NEWS_DATA,
+    type: NewsFormActionTypes.SET_NEWS_FORM_DATA,
     payload: NewsFormData
 }
 

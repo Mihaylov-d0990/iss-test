@@ -9,6 +9,7 @@ import currentGuideReducer from "../reducers/currentGuideReducer"
 import controlReducer from "../reducers/controlReducer"
 import controlFormReducer from "../reducers/controlFormReducer"
 import employeeReducer from "../reducers/employeeReducer"
+import windowReducer from "../reducers/windowReducer"
 
 export const rootReducer = combineReducers({
     personal: personalReducer,
@@ -18,7 +19,8 @@ export const rootReducer = combineReducers({
     currentGuide: currentGuideReducer,
     control: controlReducer,
     controlForm: controlFormReducer,
-    employees: employeeReducer
+    employees: employeeReducer,
+    windowOpen: windowReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

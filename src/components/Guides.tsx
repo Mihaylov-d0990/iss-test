@@ -20,8 +20,10 @@ listArray[3].expandable = true
 function Guides() {
     const currentGuide = useTypedSelector(state => state.currentGuide)
     const [formVisibility, setFormVisibility] = React.useState<boolean>(false)
+    const [open, setOpen] = React.useState<boolean>(true)
     const { fetchGuideFormData,
-            updateCurrentGuide } = useActions()
+            updateCurrentGuide,
+            setWindow } = useActions()
  
     const showForm = (resolve: Function) => {
         setFormVisibility(formVisibility => !formVisibility)
@@ -32,6 +34,11 @@ function Guides() {
         updateCurrentGuide(null, null)
         setFormVisibility(false)
     }
+
+    React.useEffect(() => {
+        if (formVisibility) setWindow(true)
+        else if (!formVisibility) setWindow(false)
+    }, [formVisibility])
 
     const toggleGuide = async (guideInfo: CurrentGuideData) => {
         if (!currentGuide) {
@@ -46,18 +53,23 @@ function Guides() {
             <div className="container">
                 <div className="guide__content">
                     <div className="guide__head">
-                        <div className="guide__title title">
+                        <div className="guide__title title" onClick={() => setOpen(open => !open)}>
                             Управление справочниками
                         </div>
                     </div>
-                    <div className="guide__list">
-                    <Guide item={listArray[0]} fetchData={() => { toggleGuide({guide: "DEPARTMENT", name: "Департамент", expandable: false}) }}/>
-                    <Guide item={listArray[1]} fetchData={() => { toggleGuide({guide: "POSITION", name: "Должность", expandable: false}) }}/>
-                    <Guide item={listArray[2]} fetchData={() => { toggleGuide({guide: "TEST", name: "Тест", expandable: false}) }}/>
-                    <Guide item={listArray[3]} fetchData={() => { toggleGuide({guide: "REGION", name: "Регион", expandable: true}) }}/>
-                    </div>
-                    <div className="guide__all">Показать все справочники</div>
-                    {formVisibility && <GuideForm hideForm={hideForm} />}
+                    {
+                        open ?
+                        <>
+                            <div className="guide__list">
+                                <Guide item={listArray[0]} fetchData={() => { toggleGuide({guide: "DEPARTMENT", name: "Департамент", expandable: false}) }}/>
+                                <Guide item={listArray[1]} fetchData={() => { toggleGuide({guide: "POSITION", name: "Должность", expandable: false}) }}/>
+                                <Guide item={listArray[2]} fetchData={() => { toggleGuide({guide: "TEST", name: "Тест", expandable: false}) }}/>
+                                <Guide item={listArray[3]} fetchData={() => { toggleGuide({guide: "REGION", name: "Регион", expandable: true}) }}/>
+                            </div>
+                            <div className="guide__all">Показать все справочники</div>
+                            {formVisibility && <GuideForm hideForm={hideForm} />}
+                        </> : <></>
+                    }
                 </div>
             </div>
         </div>

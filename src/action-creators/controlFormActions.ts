@@ -37,12 +37,11 @@ export const updateFormData = (newData: ControlFormData) => {
     }
 }
 
-export const uploadFormData = (formData: ControlFormData) => {
+export const uploadFormData = (formData: ControlFormData, resolve: Function | null) => {
     return async () => {
         await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })
 
         const name = formData.name.split(" ")
-        // 
         const response = await fetch("http://localhost:8080/api/v1/user/rou/emplyee", {
         body: `{
             "department":"${formData.departmentId}",
@@ -61,17 +60,15 @@ export const uploadFormData = (formData: ControlFormData) => {
         })
         const userId = (await response.json()).id
 
-        const responsePhone = await fetch(`http://localhost:8080/api/v1/user/employee?id=${userId}&phone=${formData.phone}`, {
+        await fetch(`http://localhost:8080/api/v1/user/employee?id=${userId}&phone=${formData.phone}`, {
             headers: {
                 Accept: "*/*"
             },
             method: "PATCH"
         })
 
-        console.log(await responsePhone.json())
-
-        
-
         await fetch("http://localhost:8080/api/logout")
+
+        if (resolve) resolve()
     }
 }

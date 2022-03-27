@@ -8,6 +8,7 @@ import guideFormReducer from "../reducers/guideFormReducer"
 import currentGuideReducer from "../reducers/currentGuideReducer"
 import controlReducer from "../reducers/controlReducer"
 import controlFormReducer from "../reducers/controlFormReducer"
+import employeeReducer from "../reducers/employeeReducer"
 
 export const rootReducer = combineReducers({
     personal: personalReducer,
@@ -16,7 +17,8 @@ export const rootReducer = combineReducers({
     guideForm: guideFormReducer,
     currentGuide: currentGuideReducer,
     control: controlReducer,
-    controlForm: controlFormReducer
+    controlForm: controlFormReducer,
+    employees: employeeReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

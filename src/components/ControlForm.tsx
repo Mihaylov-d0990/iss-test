@@ -2,17 +2,24 @@ import React from "react"
 import { ControlFormDepartmentData, ControlFormPositionData } from "../types/controlFormTypes"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
+import { isYieldExpression } from "typescript"
 
 function ControlForm() {
 
     const formData = useTypedSelector(state => state.controlForm)
     const { fetchFormData,
             updateFormData,
-            uploadFormData } = useActions()
+            uploadFormData,
+            fetchControlData } = useActions()
 
     React.useEffect(() => {
         fetchFormData()
     }, [])
+
+    const uploadData = async () => {
+        await new Promise((resolve) => uploadFormData(formData, resolve))
+        await new Promise((resolve) => fetchControlData(resolve))
+    }
     
     return (
         <div className="control-form">
@@ -48,7 +55,7 @@ function ControlForm() {
                         <input type="text" placeholder="Пароль" disabled={true} />
                     </div>
                 </div>
-                <div className="control-form__create" onClick={() => uploadFormData(formData)}>Сохранить</div>
+                <div className="control-form__create" onClick={uploadData}>Сохранить</div>
             </div>
         </div>
     )

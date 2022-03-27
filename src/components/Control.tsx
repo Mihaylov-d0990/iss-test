@@ -7,10 +7,13 @@ import ControlForm from "./ControlForm"
 function Control() {
     const { fetchControlData } = useActions()
     const controlData = useTypedSelector(state => state.control)
+    const [formVisibility, setFormVisibility] = React.useState<boolean>(false)
     
     React.useEffect(() => {
-        fetchControlData()
+        fetchControlData(null)
     }, [])
+
+    const showForm = () => setFormVisibility(formVisibility => !formVisibility)
 
     const refresh = require("../images/refresh.svg").default
     const edit = require("../images/edit.svg").default
@@ -23,7 +26,7 @@ function Control() {
                     <div className="control__title title">Управление пользователями</div>
                     <div className="control__add">
                         <div className="control__subtitle">Сотрудник</div>
-                        <div className="control__add-button">+ Добавить пользователя</div>
+                        <div className="control__add-button" onClick={showForm}>+ Добавить пользователя</div>
                     </div>
                     <div className="control__search">
                         <input type="text" placeholder="ФИО + email"/>
@@ -60,38 +63,11 @@ function Control() {
                                         </tr>
                                     )
                                 })}
-
-                                {/* <tr>
-                                    <td>2</td>
-                                    <td>Петров Пётр Петрович</td>
-                                    <td>ИТ</td>
-                                    <td>8 983 123 45 67</td>
-                                    <td>nsu@mail.ry</td>
-                                    <td>Получен</td>
-                                    <td>
-                                        <img src={refresh} alt="" />
-                                        <img src={edit} alt="" />
-                                        <img src={trash} alt="" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Иванов Иван Иванович</td>
-                                    <td>Цифровизация</td>
-                                    <td>8 983 123 45 67</td>
-                                    <td>ntsu@mail.ru</td>
-                                    <td>Отправлен</td>
-                                    <td>
-                                        <img src={refresh} alt="" />
-                                        <img src={edit} alt="" />
-                                        <img src={trash} alt="" />
-                                    </td>
-                                </tr> */}
                             </tbody>
                         </table>
                         {!controlData ? <div className="control__empty">Пока сотрудников нет</div> : <></>}
                     </div>
-                    <ControlForm />
+                    {formVisibility ? <ControlForm /> : <></>}
                     <div className="control__routing">
                         <div className="control__route">←</div>
                         <div className="control__route control__route_active">1</div>
@@ -106,7 +82,7 @@ function Control() {
                     </div>
                     <div className="control__paging">
                             <div>НА СТРАНИЦЕ: </div>
-                            <select value={2}>
+                            <select defaultValue={2} aria-readonly>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
                             </select>

@@ -1,7 +1,7 @@
 import { Dispatch } from "react"
 import { ControlAction, ControlData, ControlActionTypes } from "../types/controlTypes"
 
-export const fetchControlData = () => {
+export const fetchControlData = (resolve: Function | null) => {
     return async (dispatch: Dispatch<ControlAction>) => {
         await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })
 
@@ -22,7 +22,8 @@ export const fetchControlData = () => {
             dispatch({type: ControlActionTypes.SET_CONTROL_DATA, payload: newControlArray})
         } else dispatch({type: ControlActionTypes.SET_CONTROL_DATA, payload: null})
         
-
         await fetch("http://localhost:8080/api/logout")
+
+        if (resolve) resolve()
     }
 }

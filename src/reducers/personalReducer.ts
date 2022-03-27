@@ -1,8 +1,8 @@
 import { PersonalData, PersonalActionTypes, PersonalAction } from "../types/personalTypes"
 
 const defaultState: PersonalData = {
-    name: "Default Default Default",
-    email: "Default",
+    name: "",
+    email: "",
     photoId: null,
     photoUrl: null
 }

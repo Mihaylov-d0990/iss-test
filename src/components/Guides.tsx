@@ -52,9 +52,9 @@ function Guides() {
                     </div>
                     <div className="guide__list">
                     <Guide item={listArray[0]} fetchData={() => { toggleGuide({guide: "DEPARTMENT", name: "Департамент", expandable: false}) }}/>
-                    <Guide item={listArray[1]} fetchData={() => { toggleGuide({guide: "POSITION", name: "Позиция", expandable: false}) }}/>
+                    <Guide item={listArray[1]} fetchData={() => { toggleGuide({guide: "POSITION", name: "Должность", expandable: false}) }}/>
                     <Guide item={listArray[2]} fetchData={() => { toggleGuide({guide: "TEST", name: "Тест", expandable: false}) }}/>
-                    <Guide item={listArray[3]} fetchData={() => { toggleGuide({guide: "REGION", name: "Города", expandable: true}) }}/>
+                    <Guide item={listArray[3]} fetchData={() => { toggleGuide({guide: "REGION", name: "Регион", expandable: true}) }}/>
                     </div>
                     <div className="guide__all">Показать все справочники</div>
                     {formVisibility && <GuideForm hideForm={hideForm} />}

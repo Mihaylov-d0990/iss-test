@@ -5,6 +5,7 @@ import * as GuideFormActionCrators from "./guideFormActions"
 import * as CurrentGuideActionCreators from "./currentGuideActions"
 import * as ControlActionCreators from "./controlActions"
 import * as ControlFormActionCreators from "./controlFormActions"
+import * as StructureActionCrators from "./structureActions"
 
 const ActionCreators = {
     ...PersonalActionCreators,
@@ -13,7 +14,8 @@ const ActionCreators = {
     ...GuideFormActionCrators,
     ...CurrentGuideActionCreators,
     ...ControlActionCreators,
-    ...ControlFormActionCreators
+    ...ControlFormActionCreators,
+    ...StructureActionCrators
 }
 
 export default ActionCreators

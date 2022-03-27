@@ -1,24 +1,23 @@
 import React from "react"
-
 import NewsForm from "./NewsForm"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
 
-function News() {
+//  News component. Displaing news
 
-    const newsData                = useTypedSelector(state => state.news)
+function News() {
+    const [currentDeleteID, setCurrentDeleteID] = React.useState<string>("")
+    const [deleteForm, setDeleteForm]           = React.useState<boolean>(false)
+    const [editForm, setEditForm]               = React.useState<boolean>(false)
+    const [addForm, setAddForm]                 = React.useState<boolean>(false)
+    const [open, setOpen]                       = React.useState<boolean>(true)
+    const newsData                              = useTypedSelector(state => state.news)
     const { fetchNewsData,
             addNewsDB,
             deleteNewsDB,
             getNewsData,
             patchNewsDB,
-            setWindow }         = useActions()
-
-    const [addForm, setAddForm]   = React.useState<boolean>(false)
-    const [editForm, setEditForm] = React.useState<boolean>(false)
-    const [deleteForm, setDeleteForm] = React.useState<boolean>(false)
-    const [currentDeleteID, setCurrentDeleteID] = React.useState<string>("")
-    const [open, setOpen] = React.useState<boolean>(true)
+            setWindow }                         = useActions()
 
     React.useEffect(() => {
         fetchNewsData(null)
@@ -29,8 +28,8 @@ function News() {
         else if (!addForm || !editForm || !deleteForm) setWindow(false)
     }, [addForm, editForm, deleteForm])
 
-    const showAddForm = () => setAddForm(addForm => !addForm)
-    const showDeleteForm = () => setDeleteForm(deleteForm => !deleteForm)
+    const showAddForm       = () => setAddForm(addForm => !addForm)
+    const showDeleteForm    = () => setDeleteForm(deleteForm => !deleteForm)
 
     const showEditForm = (id: string) => {
         getNewsData(id)
@@ -40,13 +39,14 @@ function News() {
     const FormCreator = () => {
         if (addForm) return <NewsForm name="Создать новость" showForm={showAddForm} addNewsDB={addNewsDB} />
         if (editForm) return <NewsForm name="Редактировать новость" showForm={showEditForm} addNewsDB={patchNewsDB} />
-        
         return null
     }
 
     interface deleteFormProps {
         id: string
     }
+
+    //  Deleting form component. Сomponent appears before the news is deleting
 
     const DeleteForm = (props: deleteFormProps) => {
         const deleteNewsData = async () => {
@@ -137,8 +137,7 @@ function News() {
                                 </div>
                                 <div className="news__all">Показать все новости</div>
                             </> : <></>
-                        }
-                        
+                        }   
                     </div>
                 </div>
             </div>

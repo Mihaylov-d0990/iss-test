@@ -4,11 +4,13 @@ import { useTypedSelector } from "../hooks/useTypedSelector"
 import { ControlData } from "../types/controlTypes"
 import ControlForm from "./ControlForm"
 
+//  Control component. User data is displayed here
+
 function Control() {
-    const { fetchControlData, setWindow } = useActions()
-    const controlData = useTypedSelector(state => state.control)
     const [formVisibility, setFormVisibility] = React.useState<boolean>(false)
-    const [open, setOpen] = React.useState<boolean>(true)
+    const { fetchControlData, setWindow }     = useActions()
+    const [open, setOpen]                     = React.useState<boolean>(true)
+    const controlData                         = useTypedSelector(state => state.control)
     
     React.useEffect(() => {
         fetchControlData(null)

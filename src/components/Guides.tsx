@@ -5,6 +5,8 @@ import React from "react"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { CurrentGuideData } from "../types/currentGuideTypes"
 
+// Guide component. Displaying guides
+
 let listArray: CurrentGuideData[] = []
 
 for (let i: number = 1; i < 5; i++) {
@@ -14,16 +16,17 @@ for (let i: number = 1; i < 5; i++) {
         expandable: false
     })
 }
-
 listArray[3].expandable = true
 
 function Guides() {
-    const currentGuide = useTypedSelector(state => state.currentGuide)
     const [formVisibility, setFormVisibility] = React.useState<boolean>(false)
-    const [open, setOpen] = React.useState<boolean>(true)
+    const [open, setOpen]                     = React.useState<boolean>(true)
+    const currentGuide                        = useTypedSelector(state => state.currentGuide)
     const { fetchGuideFormData,
-            updateCurrentGuide,
-            setWindow } = useActions()
+        updateCurrentGuide,
+        setWindow }                           = useActions()
+    
+    
  
     const showForm = (resolve: Function) => {
         setFormVisibility(formVisibility => !formVisibility)

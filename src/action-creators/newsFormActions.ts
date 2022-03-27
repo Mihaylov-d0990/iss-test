@@ -2,11 +2,15 @@ import { Dispatch } from "react"
 import { NewsFormAction } from "../types/newsFormTypes"
 import { NewsFormData, NewsFormActionTypes } from "../types/newsFormTypes"
 
+//  Updating data of the certain news
+
 export const updateNewsFormData = (data: NewsFormData) => {
     return (dispatch: Dispatch<NewsFormAction>) => {
         dispatch({type: NewsFormActionTypes.SET_NEWS_FORM_DATA, payload: data})
     }
 }
+
+//  Fetching data of the certain news
 
 export const getNewsData = (id: string) => {
     return async (dispatch: Dispatch<NewsFormAction>) => {
@@ -29,7 +33,6 @@ export const getNewsData = (id: string) => {
         let imageList = (await imageListResponse.json()).content
 
         let fileName: string = ""
-
         imageList.forEach((item: any) => {
             if (item.id === requiredData.fileId) {
                 fileName = item.name
@@ -47,7 +50,6 @@ export const getNewsData = (id: string) => {
         }
 
         dispatch({type: NewsFormActionTypes.SET_NEWS_FORM_DATA, payload: data})
-
         await fetch("http://localhost:8080/api/logout")
     }
 }

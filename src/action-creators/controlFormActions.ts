@@ -1,6 +1,8 @@
 import { Dispatch } from "react"
 import { ControlFormAction, ControlFormActionTypes, ControlFormData } from "../types/controlFormTypes"
 
+//  Fetch department and position data from the database
+
 export const fetchFormData = () => {
     return async (dispatch: Dispatch<ControlFormAction>) => {
         await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })
@@ -31,11 +33,15 @@ export const fetchFormData = () => {
     }
 }
 
+//  Update user data in the form
+
 export const updateFormData = (newData: ControlFormData) => {
     return async (dispatch: Dispatch<ControlFormAction>) => {
         dispatch({type: ControlFormActionTypes.SET_CONTROL_FORM_DATA, payload: newData})
     }
 }
+
+//  Upload data to the database
 
 export const uploadFormData = (formData: ControlFormData, resolve: Function | null) => {
     return async () => {
@@ -61,10 +67,7 @@ export const uploadFormData = (formData: ControlFormData, resolve: Function | nu
         const userId = (await response.json()).id
 
         await fetch(`http://localhost:8080/api/v1/user/employee?id=${userId}&phone=${formData.phone}`, {
-            headers: {
-                Accept: "*/*"
-            },
-            method: "PATCH"
+            headers: { Accept: "*/*" }, method: "PATCH"
         })
 
         await fetch("http://localhost:8080/api/logout")

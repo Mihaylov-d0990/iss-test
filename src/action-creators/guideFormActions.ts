@@ -1,6 +1,8 @@
 import { Dispatch } from "react"
 import { GuideFormAction, GuideFormActionTypes } from "../types/guideFormTypes"
 
+//  Fetching data of the certain guide
+
 export const fetchGuideFormData = (type: string | undefined, resolve: Function | null) => {
     return async (dispatch: Dispatch<GuideFormAction>) => {
         await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })
@@ -16,6 +18,8 @@ export const fetchGuideFormData = (type: string | undefined, resolve: Function |
         if (resolve) resolve()
     }
 }
+
+//  Upload new entry guide to the database 
 
 export const addGuide = (name: string, guideClass: string | undefined, resolve: Function | null) => {
     return async () => {
@@ -34,9 +38,7 @@ export const addGuide = (name: string, guideClass: string | undefined, resolve: 
                 })             
             } else throw new Error("Input can't be empty")
 
-        } catch(e) {
-            console.error(e)
-        }
+        } catch(e) {console.error(e)}
         
         await fetch("http://localhost:8080/api/logout")
 

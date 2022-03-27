@@ -3,17 +3,18 @@ import { ControlFormDepartmentData, ControlFormPositionData } from "../types/con
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
 
+//  Control form compomet. In this form, the data of the new user is entered
+
 interface props {
     closeForm: MouseEventHandler<HTMLDivElement>
 }
 
 function ControlForm(props: props) {
-
-    const formData = useTypedSelector(state => state.controlForm)
     const { fetchFormData,
             updateFormData,
             uploadFormData,
             fetchControlData } = useActions()
+    const formData             = useTypedSelector(state => state.controlForm)
 
     React.useEffect(() => {
         fetchFormData()

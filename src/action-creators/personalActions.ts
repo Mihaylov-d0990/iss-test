@@ -21,9 +21,7 @@ export const fetchPersonalData = () => {
         
         if (data.photoId) {
             const responseImage =  await fetch(`http://localhost:8080/api/v1/file/${data.photoId}`)
-        
             const image = await responseImage.blob()
-
             parsedData.photoUrl = URL.createObjectURL(image)
         }
 
@@ -60,7 +58,6 @@ export const updatePersonalImage = (resolve: Function) => {
         }
 
         await fetch("http://localhost:8080/api/logout")
-
         resolve()
     }
 }
@@ -100,7 +97,6 @@ export const patchPersonalData = (patchData: PersonalData, file: File | null, re
         })
 
         await fetch("http://localhost:8080/api/logout")
-
         resolve()
     }
 }

@@ -1,6 +1,8 @@
 import { Dispatch } from "react"
 import { ControlAction, ControlData, ControlActionTypes } from "../types/controlTypes"
 
+//  Fetch users data from database 
+
 export const fetchControlData = (resolve: Function | null) => {
     return async (dispatch: Dispatch<ControlAction>) => {
         await fetch('http://localhost:8080/api/login?username=test@mail.com&password=test', { method: "POST" })

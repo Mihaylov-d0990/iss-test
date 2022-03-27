@@ -6,8 +6,9 @@ interface GuideProps {
     fetchData: MouseEventHandler<HTMLDivElement>,
 }
 
-function Guide(item: GuideProps) {
+//  Guide component. This component of the guide list
 
+function Guide(item: GuideProps) {
     return (
         <div className="guide__item">
             <div className="guide__item-top">

@@ -1,20 +1,19 @@
 import React from "react"
-
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
 import PersonalImage from "./PersonalImage"
+
+// Personal info component. There is personal information and user photo
  
 function PersonalInfo() {
-
-    const personalData              = useTypedSelector(state => state.personal)
     const { fetchPersonalData, 
-            updatePersonalImage,
-            updatePersonalData, 
-            patchPersonalData }     = useActions()
-    const [edit, setEdit]           = React.useState<boolean>(true)
-    const [open, setOpen]           = React.useState<boolean>(true)
-
-    const fileRef                   = React.useRef<HTMLInputElement>(null)
+        updatePersonalImage,
+        updatePersonalData, 
+        patchPersonalData } = useActions()
+    const [edit, setEdit]   = React.useState<boolean>(true)
+    const [open, setOpen]   = React.useState<boolean>(true)
+    const personalData      = useTypedSelector(state => state.personal)
+    const fileRef           = React.useRef<HTMLInputElement>(null)
 
     React.useEffect(() => {
         fetchPersonalData()
@@ -26,10 +25,8 @@ function PersonalInfo() {
         
         if (!edit) {
             await new Promise((resolve) => patchPersonalData(personalData, file, resolve))
-            
             await new Promise((resolve) => updatePersonalImage(resolve))  
         }
-
         setEdit(edit => !edit)    
     }
     

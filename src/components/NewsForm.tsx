@@ -3,6 +3,8 @@ import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
 import { NewsFormData } from "../types/newsFormTypes"
 
+//  News form component. There is creating news 
+
 interface NewsProps {
     name: string,
     showForm: Function,
@@ -10,12 +12,10 @@ interface NewsProps {
 }
 
 const NewsForm = (newsProps: NewsProps) => {
-
-    const newsData = useTypedSelector(state => state.newsForm)
     const { updateNewsFormData,
-            fetchNewsData } = useActions()
-
-    const fileRef                 = React.useRef<HTMLInputElement>(null)
+        fetchNewsData } = useActions()
+    const newsData      = useTypedSelector(state => state.newsForm)
+    const fileRef       = React.useRef<HTMLInputElement>(null)
 
     const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         let fileName: string = newsData.file
@@ -83,9 +83,7 @@ const NewsForm = (newsProps: NewsProps) => {
                                                     resolve
                                                 )
                                             });
-                                            
                                             await new Promise((resolve) => fetchNewsData(resolve))
-
                                             closeForm()
                                         }}
                                     >Сохранить</div>

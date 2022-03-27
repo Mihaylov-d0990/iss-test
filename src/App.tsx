@@ -9,6 +9,9 @@ import { useTypedSelector } from "./hooks/useTypedSelector"
 
 
 function App() {
+
+    //  This state is used to enable and disable scroll
+
     const windowOpen = useTypedSelector(state => state.windowOpen)
 
     React.useEffect(() => {

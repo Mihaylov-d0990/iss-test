@@ -1,17 +1,19 @@
-import React, { MouseEventHandler } from "react"
+import React from "react"
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { GuideFormData } from "../types/guideFormTypes"
 import { useActions } from "../hooks/useAction"
+
+//  Guide form component. There is adding data of new guide elements
 
 interface IGuideForm {
     hideForm: Function
 }
 
 function GuideForm(formProps: IGuideForm) {
-    const guideFormData = useTypedSelector(state => state.guideForm)  
-    const currentGuide = useTypedSelector(state => state.currentGuide)
     const [guideElementName, setElementGuideName] = React.useState<string>("")
-    const { addGuide, fetchGuideFormData } = useActions()
+    const { addGuide, fetchGuideFormData }        = useActions()
+    const guideFormData                           = useTypedSelector(state => state.guideForm)  
+    const currentGuide                            = useTypedSelector(state => state.currentGuide)
 
     const addGuideElement = async () => {
         await new Promise((resolve) => addGuide(guideElementName, currentGuide?.guide, resolve))

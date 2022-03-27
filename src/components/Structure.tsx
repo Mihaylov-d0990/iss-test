@@ -1,15 +1,16 @@
 import { useTypedSelector } from "../hooks/useTypedSelector"
 import { useActions } from "../hooks/useAction"
 import React from "react"
-
 import Select from "./Select"
 import { Employee } from "../types/structureTypes"
 
+//  Structure component. This component is used to display employees structure
+
 function Structure() {
-    const [open, setOpen] = React.useState<boolean>(true)
     const { fetchEmploees,
-            fetchControlData } = useActions()
-    const employees = useTypedSelector(state => state.employees)
+        fetchControlData } = useActions()
+    const [open, setOpen]  = React.useState<boolean>(true)
+    const employees        = useTypedSelector(state => state.employees)
     
     const fetchData = async () => {
         await new Promise((resolve) => fetchEmploees(resolve))
@@ -20,7 +21,6 @@ function Structure() {
         fetchData()
     }, []) 
 
-    
     const edit = require("../images/edit.svg").default  
 
     return (
@@ -88,9 +88,9 @@ function Structure() {
                                 </li>
                             </ol>
                         </div>
+                        <div className="structure__api-error">Документации по API было недостаточно чтобы реализовать функционал структуры ¯\_(ツ)_/¯</div>
                     </> : <></>
                 }
-                <div className="structure__api-error">Документации по API было недостаточно чтобы реализовать функционал структуры ¯\_(ツ)_/¯</div>
             </div>
         </div>
     )

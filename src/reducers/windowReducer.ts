@@ -1,4 +1,4 @@
-import { WindowAction, WindowActions, WindowActionTypes } from "../types/windowTypes"
+import { WindowAction, WindowActionTypes } from "../types/windowTypes"
 
 const defaultState: boolean = false
 

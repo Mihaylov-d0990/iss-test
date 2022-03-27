@@ -1,3 +1,5 @@
+// Head bar component
+
 function Head() {
     return(
         <div className="head">

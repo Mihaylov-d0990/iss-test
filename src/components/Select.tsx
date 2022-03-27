@@ -1,5 +1,7 @@
 import { DepartmentListElement, EmployeeListElement, PositionListElement } from "../types/structureTypes"
 
+//  Select componet. This component is used to form the structure
+
 type combineListElementsArray = DepartmentListElement[] | EmployeeListElement[] | PositionListElement[]
 type combineListElements = DepartmentListElement | EmployeeListElement | PositionListElement
 

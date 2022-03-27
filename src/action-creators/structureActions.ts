@@ -13,8 +13,9 @@ import { EmployeesAction,
         Employees, 
         EmployeesActionTypes,
         Employee} from "../types/structureTypes"
-
 import { DepartmentListElement } from "../types/structureTypes"
+
+//  Fetching data and creating structure
 
 export const fetchEmploees = (resolve: Function | null) => {
     return async (dispatch: Dispatch<EmployeesAction>) => {
@@ -28,10 +29,11 @@ export const fetchEmploees = (resolve: Function | null) => {
         let usersData = (await responseEmployees.json()).content
         
         let departmentUsers: string[] = []
-
         usersData.forEach((item: any) => {
             if (item.department.id === department.id) departmentUsers.push(item.id) 
         })
+
+        //  Checking if there are five users in the database
 
         if (departmentUsers.length < 5) {
             for (let i: number = 0; i < 5; i++) {
@@ -74,6 +76,8 @@ export const fetchEmploees = (resolve: Function | null) => {
 
         const responsePositions = await fetch("http://localhost:8080/api/v1/nsi/POSITION/page")
         const positionData: PositionListElement[] = (await responsePositions.json()).content
+
+        //  Creating structure
 
         const financier: Employee = {
             employee: {
@@ -133,7 +137,6 @@ export const fetchEmploees = (resolve: Function | null) => {
                 id: positionData[0].id
             },
             employees: [financierDirector, developmentDirectore]
-
         }
 
         const employees: Employees = {
@@ -145,10 +148,7 @@ export const fetchEmploees = (resolve: Function | null) => {
         }
 
         dispatch({type: EmployeesActionTypes.SET_EMPLOYEES_DATA, payload: employees})
-
         await fetch("http://localhost:8080/api/logout")
-
         if (resolve) resolve()
-        
     }
 }

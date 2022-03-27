@@ -104,7 +104,7 @@ function News() {
                             <>
                                 <div className="news__list">
                                     {
-                                        newsData.map(item => {
+                                        newsData?.map(item => {
                                             return (
                                                 <div className="news__item" key={item.id}>
                                                     <div className="news__image" style={{backgroundImage: `url('${item.fileId}')`}}>
@@ -133,7 +133,7 @@ function News() {
                                             )
                                         })   
                                     }
-                                    { newsData.length === 0 ? <div className="news__empty">Пока новостей нет</div> : <></>}
+                                    { newsData?.length === 0 ? <div className="news__empty">Пока новостей нет</div> : <></>}
                                 </div>
                                 <div className="news__all">Показать все новости</div>
                             </> : <></>

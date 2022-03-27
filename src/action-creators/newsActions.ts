@@ -28,12 +28,14 @@ export const fetchNewsData = (resolve: Function | null) => {
         const newsResponse = await fetch('http://localhost:8080/api/v1/news/page?size')
         let data = (await newsResponse.json()).content
 
-        data.forEach((item: any) => {
-            item.createdAt = Date.parse(new Date(item.createdAt).toString()) / 1000 
-        })
-
-        data.sort(compare)  
-        data = [data[0], data[1], data[2]]
+        if(data.length > 0) {
+            data.forEach((item: any) => {
+                item.createdAt = Date.parse(new Date(item.createdAt).toString()) / 1000 
+            })
+    
+            data.sort(compare)  
+            data = [data[0], data[1], data[2]]
+        }
 
         if (data[0]?.fileId) {
             const responseImage = await fetch(`http://localhost:8080/api/v1/file/${data[0].fileId}`)
